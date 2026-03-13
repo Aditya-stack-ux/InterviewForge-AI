@@ -1,0 +1,22 @@
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline-start: 2px;
+    padding-block: 12px;
+    border: none;
+    outline: none;
+    border-radius: 1rem;
+
+    transition: all 0.3s ease-in-out;
+
+    &.primary-button{
+        background-color: #ce084e;
+        color: white;
+    }
+    
+    &:active{
+        transform: scale(0.95);
+    }
+    
+}
