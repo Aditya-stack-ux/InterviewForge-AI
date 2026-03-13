@@ -25,6 +25,34 @@ async function generateInterviewReportController(req,res){
 
 }
 
+async function getInterviewReportByIdController(req,res){
+    const {interviewId} = req.params
+    const interviewReport = await interviewReportModel.findOne({_id:interviewId, user:req.user.id})
+
+    if(!interviewReport){
+        res.status(404).json({
+            message:"interview report not found"
+        })
+    }
+
+    res.status(200).json({
+        message:"Interview report fetched succesfully",
+        interviewReport
+    })
+}
+
+async function getAllInterviewReportController(req, res) {
+    const interviewReports = await interviewReportModel
+        .find({ user: req.user.id })
+        .sort({ createdAt: -1 })
+        .select("title createdAt matchScore");
+                
+    res.status(200).json({
+        message: "Interview reports fetched successfully",
+        interviewReports
+    });
+}
+
 async function getResumePdfController(req,res){
   try {
 
