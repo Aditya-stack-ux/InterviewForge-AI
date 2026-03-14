@@ -9,7 +9,7 @@ app.use(cors({
     origin: function (origin, callback) {
         const allowed = [
             "http://localhost:5173",
-            "https://ai-interview-prep-fontend-n9yt.vercel.app"
+            "https://interviewforge-ai-1.onrender.com"
         ]
         // Allow any vercel preview deployment of your app
         if (!origin || allowed.includes(origin) || /https:\/\/ai-interview-prep-fontend-n9yt.*\.vercel\.app/.test(origin)) {
