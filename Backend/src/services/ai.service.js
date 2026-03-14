@@ -1,5 +1,6 @@
 const Groq = require("groq-sdk");
-const puppeteer = require("puppeteer")
+const puppeteer = require("puppeteer-core")
+const chromium = require("@sparticuz/chromium")
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API
@@ -177,31 +178,51 @@ Return ONLY JSON.
   throw new Error("Failed to generate valid report after 3 attempts")
 }
 
-async function generatePdfFromHtml(htmlContent){
-  const browser = await puppeteer.launch({
-  executablePath: puppeteer.executablePath(),
-  args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  headless: true
-})
+async function generatePdfFromHtml(htmlContent) {
+  let browser = null;
 
+  try {
+    const isDev = process.env.NODE_ENV === "development";
 
-  const page = await browser.newPage()
- await page.setContent(htmlContent, {
-    waitUntil: "domcontentloaded"
-  })
-  const pdfBuffer = await page.pdf({
-  format: "A4",
-  printBackground: true,
-  margin: {
-    top: "20mm",
-    bottom: "20mm",
-    left: "15mm",
-    right: "15mm"
+    browser = await puppeteer.launch(
+      isDev
+        ? {
+            // Local: uses your machine's Chrome
+            channel: "chrome",
+            headless: true,
+            args: ["--no-sandbox", "--disable-setuid-sandbox"],
+          }
+        : {
+            // Render: uses bundled Chromium binary
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath(),
+            headless: chromium.headless,
+          }
+    );
+
+    const page = await browser.newPage();
+
+    await page.setContent(htmlContent, {
+      waitUntil: "networkidle0",
+    });
+
+    const pdfBuffer = await page.pdf({
+      format: "A4",
+      printBackground: true,
+      margin: {
+        top: "20mm",
+        bottom: "20mm",
+        left: "15mm",
+        right: "15mm",
+      },
+    });
+
+    return pdfBuffer;
+
+  } finally {
+    if (browser) await browser.close();
   }
-})
-  await browser.close()
-
-  return pdfBuffer
 }
 
 async function generateResumePdf({resume, selfDescription, jobDescription}){
