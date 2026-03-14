@@ -4,7 +4,16 @@ const api = axios.create({
     baseURL:"https://interviewforge-ai.onrender.com",
     withCredentials:true
 })
+api.interceptors.request.use((config) => {
 
+  const token = localStorage.getItem("token")
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+
+  return config
+})
 export async function register({username, email, password}){
     try {
         const response = await api.post("/api/auth/register",{
@@ -22,7 +31,7 @@ export async function login({email, password}){
         const response = await api.post("/api/auth/login", {
             email, password
         })
-        
+        localStorage.setItem("token", response.data.token)
         return response.data
 
     } catch (err) {
