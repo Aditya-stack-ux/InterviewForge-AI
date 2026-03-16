@@ -46,6 +46,7 @@ async function registerUserController(req,res){
 
     res.status(201).json({
         message:"user registered succesfully",
+        token,
         user:{
             id: user._id,
             username:user.username,
@@ -122,9 +123,7 @@ async function getMeController(req,res){
     const user = await userModel.findById(req.user.id)
     res.status(200).json({
         message:"user detail fetched successfully",
-        user:{
-            user
-        }
+        user
     })
 }
 
