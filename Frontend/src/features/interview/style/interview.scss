@@ -476,32 +476,107 @@ $severity-low: #3fb950;
 
 @media (max-width: 900px){
 
-  .interview-layout{
-    flex-direction: column;
+  .interview-page{
+    padding: 0.75rem;
   }
 
-  .interview-sidebar{
-    order:1;
-    width:100%;
+  .interview-layout{
+    flex-direction: column;
+    border-radius: 0.75rem;
   }
+
+  /* NAVIGATION */
 
   .interview-nav{
     order:2;
     width:100%;
-    display:flex;
-    flex-direction:column;
+    padding: 1rem 0.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
-  .interview-content{
-    order:3;
-    max-height:none;
+  .interview-nav__label{
+    padding-left: 0.5rem;
+  }
+
+  .interview-nav__item{
+    padding: 0.75rem;
+    font-size: 0.9rem;
   }
 
   /* move button above nav items */
+
   .interview-nav .primary-button{
     order:-1;
     width:100%;
-    margin-bottom:1rem;
+    margin-bottom:0.75rem;
+    justify-content:center;
+  }
+
+  /* MAIN CONTENT */
+
+  .interview-content{
+    order:3;
+    padding:1.25rem 1rem;
+    max-height:none;
+    overflow:visible;
+  }
+
+  .content-header{
+    flex-wrap:wrap;
+    gap:0.4rem;
+  }
+
+  .content-header h2{
+    font-size:1rem;
+  }
+
+  /* SIDEBAR */
+
+  .interview-sidebar{
+    order:1;
+    width:100%;
+    padding:1rem;
+    flex-direction:column;
+  }
+
+  /* MATCH SCORE */
+
+  .match-score__ring{
+    width:75px;
+    height:75px;
+  }
+
+  .match-score__value{
+    font-size:1.4rem;
+  }
+
+  /* QUESTION CARDS */
+
+  .q-card__header{
+    padding:0.75rem;
+  }
+
+  .q-card__question{
+    font-size:0.85rem;
+  }
+
+  .q-card__body{
+    padding:0.75rem;
+  }
+
+  /* ROADMAP */
+
+  .roadmap-day{
+    padding-left:3rem;
+  }
+
+  .roadmap-list::before{
+    left:20px;
+  }
+
+  .roadmap-day::before{
+    left:14px;
   }
 
 }

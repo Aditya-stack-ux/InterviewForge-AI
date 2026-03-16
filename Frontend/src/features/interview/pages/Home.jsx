@@ -11,6 +11,7 @@ const Home = () => {
     const {loading, generateReport, reports} = useInterview()
     const [selfDescription, setSelfDescription] = useState("")
     const [jobDescription, setJobDescription] = useState("");
+    const [resumeFile, setResumeFile] = useState(null)
     const resumeInputRef = useRef()
 
     const navigate = useNavigate()
@@ -30,9 +31,7 @@ const Home = () => {
 }
   return (
         <div className='home-page'>
-<button className='logout-btn' onClick={handleLogout}>
-        ↩ Logout
-    </button>
+
             {/* Page Header */}
             <header className='page-header'>
                 <h1>Create Your Custom <span className='highlight'>Interview Plan</span></h1>
@@ -85,7 +84,19 @@ const Home = () => {
                                 </span>
                                 <p className='dropzone__title'>Click to upload or drag &amp; drop</p>
                                 <p className='dropzone__subtitle'>PDF or DOCX (Max 5MB)</p>
-                                <input ref={resumeInputRef}  hidden type='file' id='resume' name='resume' accept='.pdf,.docx' />
+                                {resumeFile && (<p className='uploaded-file'>Uploaded: {resumeFile.name}</p>)}
+                                <input
+                                       ref={resumeInputRef}
+                                       hidden
+                                       type="file"
+                                       id="resume"
+                                       name="resume"
+                                       accept=".pdf,.docx"
+                                       onChange={(e) => {
+                                         const file = e.target.files[0]
+                                         setResumeFile(file)
+                                       }}
+                                     />
                             </label>
                         </div>
 
