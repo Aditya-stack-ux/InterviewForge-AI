@@ -7,7 +7,7 @@
   --bg-card-2: #0e1a2e;
   --border:    #1f2a40;
   --border-hi: rgba(255, 45, 120, 0.45);
-  --accent:    #ff2d78;
+  --accent:    #fa1867;
   --accent-2:  #ff6fa0;
   --text:      #ffffff;
   --muted:     #a3b1c6;
@@ -52,7 +52,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #ff2d78, #ff4f8f);
+  background: linear-gradient(135deg, #a4043c, #820433);
   padding: 12px 24px;
   border-radius: var(--radius-sm);
   text-decoration: none;
@@ -62,7 +62,7 @@
   font-weight: 600;
   letter-spacing: 0.1px;
   transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 20px rgba(255, 45, 120, 0.25);
+  box-shadow: 0 4px 20px rgba(255, 62, 130, 0.25);
 
   &:hover {
     transform: translateY(-2px);
@@ -118,7 +118,7 @@
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #ff2d78 0%, #ff9ec5 100%);
+  background: linear-gradient(135deg, #840833 0%, #e23f80 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

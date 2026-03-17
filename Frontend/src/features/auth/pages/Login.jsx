@@ -18,14 +18,8 @@ const Login = () => {
         navigate("/dashboard")
     }
      
+ 
 
-if(loading) {
-    return(
-        <main>
-            <ClipLoader color="#f33939" size={40} />
-        </main>
-    )
-}
 
   return (
     <main>

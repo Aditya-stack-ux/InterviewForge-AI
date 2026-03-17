@@ -72,17 +72,28 @@ const Interview = () => {
     
 
     if (loading || !report) {
-        return (
-          <main>
-            <ClipLoader color="#f33939" size={40} />
-        </main>
-        )
-    }
+  return (
+    <main className="loading-container">
+      <ClipLoader color="#de0451" size={40} />
+      <p className="loading-text">
+        Generating your AI interview report...
+      </p>
+    </main>
+  );
+}
 
     const scoreColor =
         report.matchScore >= 80 ? 'score--high' :
             report.matchScore >= 60 ? 'score--mid' : 'score--low'
-
+    
+    const scoreMessage =
+    report.matchScore >= 85
+        ? "Excellent candidate for this role"
+        : report.matchScore >= 70
+        ? "Strong match with minor improvements needed"
+        : report.matchScore >= 50
+        ? "Partial match — focus on missing skills"
+        : "Low match — major preparation required"      
 
     return (
         <div className='interview-page'>
@@ -168,7 +179,7 @@ const Interview = () => {
                             <span className='match-score__value'>{report.matchScore}</span>
                             <span className='match-score__pct'>%</span>
                         </div>
-                        <p className='match-score__sub'>Strong match for this role</p>
+                        <p className='match-score__sub'>{scoreMessage}</p>
                     </div>
 
                     <div className='sidebar-divider' />

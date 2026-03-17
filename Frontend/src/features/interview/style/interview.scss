@@ -6,7 +6,7 @@ $bg-input: #1e2535;
 $border-color: #2a3348;
 $text-primary: #e6edf3;
 $text-muted: #7d8590;
-$accent: #ff2d78;
+$accent: #d5054e;
 $font-stack: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
 // severity palette
@@ -30,7 +30,20 @@ $severity-low: #3fb950;
     padding: 1.5rem;
     box-sizing: border-box;
 }
+.loading-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
 
+.loading-text {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+}
 // ── 3-Column Layout ───────────────────────────────────────────────────────────
 .interview-layout {
     display: flex;
