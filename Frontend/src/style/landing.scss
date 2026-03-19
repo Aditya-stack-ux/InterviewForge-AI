@@ -52,7 +52,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #a4043c, #820433);
+  background: linear-gradient(135deg, #e31b61, #3b0217);
   padding: 12px 24px;
   border-radius: var(--radius-sm);
   text-decoration: none;
@@ -118,7 +118,7 @@
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #840833 0%, #e23f80 100%);
+  background: linear-gradient(135deg, #600123 0%, #e8397f 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -154,7 +154,7 @@
   }
   .hero-orb-1 {
     width: 600px; height: 400px;
-    background: radial-gradient(circle, rgba(255,45,120,0.12), transparent 70%);
+    background: radial-gradient(circle, rgba(255, 13, 96, 0.12), transparent 90%);
     top: -100px; left: 50%;
     transform: translateX(-50%);
   }
