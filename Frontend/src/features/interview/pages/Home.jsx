@@ -26,6 +26,9 @@ const Home = () => {
     return(
         <main>
             <ClipLoader color="#f33939" size={40} />
+            <p className="loading-text">
+        please waitt...
+      </p>
         </main>
     )
 }

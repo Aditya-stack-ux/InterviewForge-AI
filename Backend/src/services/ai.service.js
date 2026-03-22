@@ -26,7 +26,7 @@ const interviewReportSchema = {
         technicalQuestions: {
           type: "array",
           description: "MUST contain at least 4 technical questions",
-          minItems: 4,
+          minItems: 5,
           items: {
             type: "object",
             properties: {
@@ -42,7 +42,7 @@ const interviewReportSchema = {
         behavioralQuestions: {
           type: "array",
           description: "MUST contain at least 4 behavioral questions",
-          minItems: 4,
+          minItems: 5,
           items: {
             type: "object",
             properties: {

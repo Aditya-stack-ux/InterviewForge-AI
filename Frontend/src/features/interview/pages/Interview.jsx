@@ -74,9 +74,9 @@ const Interview = () => {
     if (loading || !report) {
   return (
     <main className="loading-container">
-      <ClipLoader color="#de0451" size={40} />
+      <ClipLoader color="#fa1867" size={40} />
       <p className="loading-text">
-        Generating your AI interview report...
+        please waitt...
       </p>
     </main>
   );
