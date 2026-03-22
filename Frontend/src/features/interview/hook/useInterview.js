@@ -13,21 +13,35 @@ export const useInterview = () => {
 
     const {loading, setLoading, report, setReport, reports, setReports} = context
 
-    const generateReport = async ({jobDescription, selfDescription, resumeFile}) => {
-        setLoading(true)
-        let response = null
-        try{
-             response = await generateInterviewReport({jobDescription, selfDescription, resumeFile})
-            setReport(response.interviewReport)
-            console.log(response.interviewReport)
-        } catch(err){
-            console.log(err)
+    const generateReport = async ({ jobDescription, selfDescription, resumeFile }) => {
+    setLoading(true)
+
+    try {
+        const response = await generateInterviewReport({
+            jobDescription,
+            selfDescription,
+            resumeFile
+        })
+
+        // ✅ Validate response
+        if (!response || !response.interviewReport) {
+            throw new Error("Invalid response from server")
         }
-        finally{
-            setLoading(false)
-        }
-        return response.interviewReport
+
+        setReport(response.interviewReport)
+        console.log(response.interviewReport)
+
+        return response.interviewReport   // ✅ return inside try
+
+    } catch (err) {
+        console.error("❌ generateReport error:", err.message)
+
+        throw err   // ✅ propagate error to component
+
+    } finally {
+        setLoading(false)
     }
+}
 
     const getReportById = async (interviewId) => {
         setLoading(true)

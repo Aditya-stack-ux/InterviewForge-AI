@@ -19,7 +19,16 @@ const Login = () => {
     }
      
  
-
+  if(loading){
+    return (
+     <main className="loading-container">
+       <ClipLoader color="#fa1867" size={40} />
+       <p className="loading-text">
+         please waitt...
+       </p>
+     </main>
+   );
+  }
 
   return (
     <main>

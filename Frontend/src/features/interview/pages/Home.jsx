@@ -23,14 +23,14 @@ const Home = () => {
     }
 
     if(loading) {
-    return(
-        <main>
-            <ClipLoader color="#f33939" size={40} />
-            <p className="loading-text">
-        please waitt...
-      </p>
+     return (
+        <main className="loading-container">
+          <ClipLoader color="#fa1867" size={40} />
+          <p className="loading-text">
+            please waitt...
+          </p>
         </main>
-    )
+      );
 }
   return (
         <div className='home-page'>
