@@ -13,7 +13,7 @@ export const useInterview = () => {
 
     const {loading, setLoading, report, setReport, reports, setReports} = context
 
-    const generateReport = async ({ jobDescription, selfDescription, resumeFile }) => {
+   const generateReport = async ({ jobDescription, selfDescription, resumeFile }, retries = 2) => {
     setLoading(true)
 
     try {
@@ -23,20 +23,24 @@ export const useInterview = () => {
             resumeFile
         })
 
-        // ✅ Validate response
         if (!response || !response.interviewReport) {
             throw new Error("Invalid response from server")
         }
 
         setReport(response.interviewReport)
-        console.log(response.interviewReport)
-
-        return response.interviewReport   // ✅ return inside try
+        return response.interviewReport
 
     } catch (err) {
         console.error("❌ generateReport error:", err.message)
 
-        throw err   // ✅ propagate error to component
+        // ✅ Retry on 500 (cold start or AI hiccup)
+        if (retries > 0 && err?.response?.status === 500) {
+            console.log(`Retrying... (${retries} left)`)
+            await new Promise(r => setTimeout(r, 5000)) // wait 5s
+            return generateReport({ jobDescription, selfDescription, resumeFile }, retries - 1)
+        }
+
+        throw err
 
     } finally {
         setLoading(false)

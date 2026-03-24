@@ -3,26 +3,53 @@ const {generateInterviewReport, generateResumePdf} = require("../services/ai.ser
 const interviewReportModel = require("../models/interviewReport.model")
 
 
-async function generateInterviewReportController(req,res){
-    const resumeContent = await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()
-    const {selfDescription, jobDescription} = req.body
-    const interviewReportByAi = await generateInterviewReport({
-        resume:resumeContent.text,
-        selfDescription,
-        jobDescription
-    })
-    const interviewReport = await interviewReportModel.create({
-        user:req.user.id,
-        resume:resumeContent.text,
-        selfDescription,
-        jobDescription,
-        ...interviewReportByAi
-    })
-    res.status(201).json({
-        message:"Interview report generated successfully",
-        interviewReport
-    })
+async function generateInterviewReportController(req, res) {
+    try {
+        // ✅ Check file exists
+        if (!req.file) {
+            return res.status(400).json({ message: "Resume file is required" })
+        }
 
+        // ✅ Safe PDF parsing
+        const resumeContent = await (new pdfParse.PDFParse(
+            Uint8Array.from(req.file.buffer)
+        )).getText()
+
+        if (!resumeContent?.text) {
+            return res.status(400).json({ message: "Could not extract text from PDF" })
+        }
+
+        const { selfDescription, jobDescription } = req.body
+
+        const interviewReportByAi = await generateInterviewReport({
+            resume: resumeContent.text,
+            selfDescription,
+            jobDescription
+        })
+
+        const interviewReport = await interviewReportModel.create({
+            user: req.user.id,
+            resume: resumeContent.text,
+            selfDescription,
+            jobDescription,
+            ...interviewReportByAi
+        })
+
+        res.status(201).json({
+            message: "Interview report generated successfully",
+            interviewReport
+        })
+
+    } catch (err) {
+        // ✅ Now you'll see exact errors in Render logs
+        console.error("❌ Controller error:", err.message)
+
+        if (err.message.includes("Failed to generate")) {
+            return res.status(503).json({ message: "AI service unavailable, please try again" })
+        }
+
+        res.status(500).json({ message: "Something went wrong", error: err.message })
+    }
 }
 
 async function getInterviewReportByIdController(req,res){

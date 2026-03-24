@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const api = axios.create({
-    baseURL:"https://interviewforge-ai.onrender.com",
+    baseURL:"http://localhost:3000",
     withCredentials:true
 })
 
@@ -15,16 +15,17 @@ api.interceptors.request.use((config) => {
 })
 
 
-export const generateInterviewReport = async ({jobDescription, selfDescription, resumeFile}) => {
+export const generateInterviewReport = async ({ jobDescription, selfDescription, resumeFile }) => {
     const formData = new FormData()
     formData.append("jobDescription", jobDescription)
     formData.append("selfDescription", selfDescription)
     formData.append("resume", resumeFile)
 
     const response = await api.post("/api/interview", formData, {
-        headers:{
+        headers: {
             "Content-Type": "multipart/form-data"
-        }
+        },
+        timeout: 120000 // ✅ 2 min timeout — AI calls are slow!
     })
 
     return response.data
